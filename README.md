@@ -62,3 +62,13 @@ Generated outputs:
 - `results/baseline_ball_beam.gif`
 
 This baseline is intentionally simple. It gives a reference controller before adding the Genetic Algorithm optimizer.
+
+## Population preview
+
+To make the optimization process more visual, the project now includes a population preview animation.
+
+Generated output:
+
+- `results/population_preview.gif`
+
+This animation shows multiple PID controllers acting on the same simplified ball-and-beam system. It gives an early visual intuition for how different controller parameters produce different behaviors before adding the full Genetic Algorithm.
