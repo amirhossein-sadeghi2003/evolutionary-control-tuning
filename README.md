@@ -72,3 +72,24 @@ Generated output:
 - `results/population_preview.gif`
 
 This animation shows multiple PID controllers acting on the same simplified ball-and-beam system. It gives an early visual intuition for how different controller parameters produce different behaviors before adding the full Genetic Algorithm.
+
+## Genetic Algorithm optimizer
+
+The project now includes a Genetic Algorithm for tuning PID gains.
+
+Each individual in the population contains three values:
+
+- `Kp`
+- `Ki`
+- `Kd`
+
+The optimizer evaluates each controller on the simplified ball-and-beam system and assigns a fitness score based on tracking error, final error, overshoot, settling behavior, and control effort.
+
+Generated outputs:
+
+- `results/ga_history.csv`
+- `results/final_metrics.csv`
+- `results/fitness_curve.png`
+- `results/best_controller_response.png`
+
+Lower fitness is better.
