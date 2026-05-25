@@ -51,3 +51,14 @@ results/
 ## Current status
 
 Initial project structure.
+
+## First visual baseline
+
+The first implemented step is a simplified ball-and-beam simulation with a manually selected PID controller.
+
+Generated outputs:
+
+- `results/baseline_response.png`
+- `results/baseline_ball_beam.gif`
+
+This baseline is intentionally simple. It gives a reference controller before adding the Genetic Algorithm optimizer.
