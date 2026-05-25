@@ -93,3 +93,15 @@ Generated outputs:
 - `results/best_controller_response.png`
 
 Lower fitness is better.
+
+## Baseline vs evolved controller
+
+The project also compares the manually selected baseline PID controller with the GA-tuned controller.
+
+Generated outputs:
+
+- `results/controller_comparison.csv`
+- `results/baseline_vs_evolved_response.png`
+- `results/baseline_vs_evolved.gif`
+
+This comparison makes the effect of evolutionary tuning easier to see: both controllers are tested on the same simplified ball-and-beam system, and their tracking behavior is visualized side by side.
