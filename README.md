@@ -1,107 +1,128 @@
 # Evolutionary Control Tuning
 
-A visual simulation project for tuning controllers with evolutionary optimization.
+A visual simulation project that uses a Genetic Algorithm to tune PID controller gains for a simplified ball-and-beam control system.
+
+The project connects three areas:
+
+- control systems
+- evolutionary optimization
+- intelligent physical systems
 
 ## Project idea
 
-This project uses a Genetic Algorithm to tune PID controller gains for a simplified ball-and-beam control system.
+Each candidate controller is represented by three PID gains:
 
-Each candidate controller is represented as:
+- Kp
+- Ki
+- Kd
 
-Kp, Ki, Kd
+The controller is tested on a simplified ball-and-beam simulation. Poor controllers may overshoot, oscillate, or fail to stabilize the ball. Better controllers should move the ball toward the target quickly and keep it stable.
 
-The controller is evaluated by how well it can move and stabilize a ball near a target position. Poor controllers may overshoot, oscillate, or fail to stabilize the system. Better controllers should reach the target faster and remain more stable.
+## Visual demo
 
-## Why this project
+### Baseline ball-and-beam simulation
 
-This project connects three areas:
+![Baseline Ball and Beam](results/baseline_ball_beam.gif)
 
-- control systems
-- optimization
-- intelligent physical systems
+### Population preview
 
-The goal is not only to find good PID gains, but also to visualize how the optimization process improves controllers over generations.
+The animation below shows multiple PID controllers acting on the same ball-and-beam system. This gives an early visual intuition for how different controller parameters produce different behaviors before applying the Genetic Algorithm.
 
-## Planned visual outputs
+![Population Preview](results/population_preview.gif)
 
-- population evolution animation
-- best controller progress animation
-- baseline PID vs evolved PID comparison
-- fitness curve over generations
-- final controller metrics
+### Manual PID vs GA-tuned PID
 
-## Planned structure
+The final comparison tests the manually selected baseline controller against the evolved controller found by the Genetic Algorithm.
 
-src/
-- ball_beam_sim.py
-- pid_controller.py
-- genetic_algorithm.py
-- fitness.py
-- visualize.py
+![Baseline vs Evolved Controller](results/baseline_vs_evolved.gif)
 
-scripts/
-- run_baseline.py
-- run_evolution.py
-- animate_population.py
-- compare_best_controller.py
+## Results summary
 
-results/
-- generated plots and animations
+| Controller | Kp | Ki | Kd | Mean error | Overshoot | Settling time |
+|---|---:|---:|---:|---:|---:|---:|
+| Manual baseline | 2.000 | 0.000 | 0.200 | 0.0606 | 0.2291 | 2.94s |
+| GA-tuned PID | 6.000 | 0.000 | 1.498 | 0.0351 | 0.0000 | 0.86s |
 
-## Current status
+The GA-tuned controller reduced the mean tracking error and reached the target with less overshoot than the manual baseline.
 
-Initial project structure.
+## Genetic Algorithm
 
-## First visual baseline
+The Genetic Algorithm searches for better PID gains through:
 
-The first implemented step is a simplified ball-and-beam simulation with a manually selected PID controller.
+1. random population initialization
+2. fitness evaluation
+3. tournament selection
+4. crossover
+5. mutation
+6. elitism
 
-Generated outputs:
+The fitness function penalizes:
 
-- `results/baseline_response.png`
-- `results/baseline_ball_beam.gif`
-
-This baseline is intentionally simple. It gives a reference controller before adding the Genetic Algorithm optimizer.
-
-## Population preview
-
-To make the optimization process more visual, the project now includes a population preview animation.
-
-Generated output:
-
-- `results/population_preview.gif`
-
-This animation shows multiple PID controllers acting on the same simplified ball-and-beam system. It gives an early visual intuition for how different controller parameters produce different behaviors before adding the full Genetic Algorithm.
-
-## Genetic Algorithm optimizer
-
-The project now includes a Genetic Algorithm for tuning PID gains.
-
-Each individual in the population contains three values:
-
-- `Kp`
-- `Ki`
-- `Kd`
-
-The optimizer evaluates each controller on the simplified ball-and-beam system and assigns a fitness score based on tracking error, final error, overshoot, settling behavior, and control effort.
-
-Generated outputs:
-
-- `results/ga_history.csv`
-- `results/final_metrics.csv`
-- `results/fitness_curve.png`
-- `results/best_controller_response.png`
+- mean tracking error
+- final error
+- overshoot
+- long settling time
+- excessive control effort
 
 Lower fitness is better.
 
-## Baseline vs evolved controller
+## Fitness curve
 
-The project also compares the manually selected baseline PID controller with the GA-tuned controller.
+![Fitness Curve](results/fitness_curve.png)
 
-Generated outputs:
+## Best evolved response
 
-- `results/controller_comparison.csv`
-- `results/baseline_vs_evolved_response.png`
-- `results/baseline_vs_evolved.gif`
+![Best Controller Response](results/best_controller_response.png)
 
-This comparison makes the effect of evolutionary tuning easier to see: both controllers are tested on the same simplified ball-and-beam system, and their tracking behavior is visualized side by side.
+## Repository structure
+
+~~~text
+src/
+  ball_beam_sim.py
+  pid_controller.py
+  fitness.py
+  genetic_algorithm.py
+
+scripts/
+  run_baseline.py
+  animate_population.py
+  run_evolution.py
+  compare_controllers.py
+
+results/
+  generated plots, GIFs, and metrics
+~~~
+
+## How to run
+
+Create a virtual environment and install the requirements:
+
+~~~bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+~~~
+
+Run the baseline simulation:
+
+~~~bash
+python scripts/run_baseline.py
+~~~
+
+Run the Genetic Algorithm:
+
+~~~bash
+python scripts/run_evolution.py
+~~~
+
+Compare the manual and evolved controllers:
+
+~~~bash
+python scripts/compare_controllers.py
+~~~
+
+## Current status
+
+This project is a visual simulation prototype. It demonstrates how evolutionary optimization can tune a PID controller for a simplified physical control problem.
+
+A useful future improvement would be refining the search range and fitness function, because the current evolved gains reach the upper edge of the selected search range.
