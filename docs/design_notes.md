@@ -1,4 +1,4 @@
-# Interview Defense Notes
+# Design Notes
 
 ## Project goal
 
@@ -154,9 +154,9 @@ A useful future improvement would be to:
 - compare GA tuning with manual tuning, grid search, or Bayesian optimization
 - use a more physically accurate ball-and-beam model
 
-## How I would explain this project in an interview
+## Project explanation
 
-I built a visual simulation to show how a Genetic Algorithm can tune PID gains for a simplified control problem. I first created a baseline PID controller, then visualized several different controllers, then implemented the GA optimizer, and finally compared the evolved controller with the manual baseline.
+This project is a visual simulation showing how a Genetic Algorithm can tune PID gains for a simplified control problem. I first created a baseline PID controller, then visualized several different controllers, then implemented the GA optimizer, and finally compared the evolved controller with the manual baseline.
 
 The main point of the project is not only the final PID gains. The point is to show the full tuning process visually: unstable or weaker controllers appear in the population, the GA selects better candidates, and the final controller is compared against the baseline.
 
