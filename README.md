@@ -45,6 +45,8 @@ The final comparison tests the manually selected baseline controller against the
 
 The GA-tuned controller reduced the mean tracking error and reached the target with less overshoot than the manual baseline.
 
+This result should be interpreted within the selected simulation model and search range. The evolved Kp value reaches the upper bound of the current search range, so the result is useful, but not proof that the globally best PID gains have been found.
+
 ## Genetic Algorithm
 
 The Genetic Algorithm searches for better PID gains through:
@@ -121,8 +123,35 @@ Compare the manual and evolved controllers:
 python scripts/compare_controllers.py
 ~~~
 
+## What This Version Shows
+
+This project shows a controlled simulation experiment, not a hardware controller.
+
+The useful result is the comparison between a manually selected PID baseline and a GA-tuned PID controller on the same simplified ball-and-beam model.
+
+The current evolved controller improves the simulated response, but the result depends on:
+
+- the simplified dynamics model
+- the selected PID gain bounds
+- the fitness function weights
+- the simulation time horizon
+- the absence of real sensor noise, servo delay, backlash, and mechanical friction
+
+## Limitations
+
+Current limitations:
+
+- the plant is a simplified simulation, not the real ball-and-beam hardware
+- the Genetic Algorithm searches only inside predefined gain ranges
+- the evolved Kp reaches the upper edge of the current search range
+- the fitness function reflects chosen design priorities, not a universal control objective
+- the controller has not yet been tested with real sensor feedback
+- the simulation does not model all real mechanical effects from the hardware prototype
+
+---
+
 ## Current status
 
-This project is a visual simulation prototype. It demonstrates how evolutionary optimization can tune a PID controller for a simplified physical control problem.
+This project is a visual simulation prototype for comparing manual PID tuning with GA-based PID tuning.
 
-A useful future improvement would be refining the search range and fitness function, because the current evolved gains reach the upper edge of the selected search range.
+A useful future improvement would be refining the gain search range and fitness function, then testing whether the evolved controller still behaves well under noise, delay, and more realistic plant assumptions.
